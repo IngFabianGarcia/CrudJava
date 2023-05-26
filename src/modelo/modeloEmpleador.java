@@ -1,56 +1,81 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
+
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Fabian
  */
+
 public class modeloEmpleador {
-    private int Codigo;
-    private String Apellidos;
-    private String Nombre;
-    private int Telefono;
-
-    public modeloEmpleador(int Codigo, String Apellidos, String Nombre, int Telefono) {
-        this.Codigo = Codigo;
-        this.Apellidos = Apellidos;
-        this.Nombre = Nombre;
-        this.Telefono = Telefono;
+    
+    Connection MyConexion;
+    ResultSet rst;
+    
+    public ResultSet ListarDatos(){
+        
+        DefaultTableModel TablaModelo = new DefaultTableModel();
+        TablaModelo.setRowCount(0);
+        TablaModelo.setColumnCount(0);
+        
+        TablaModelo.addColumn("ID");
+        TablaModelo.addColumn("Apellidos");
+        TablaModelo.addColumn("Nombre");
+        TablaModelo.addColumn("Telefono");
+        
+        
+        try{
+            Conexion nuevaConexion = new Conexion();
+            MyConexion = nuevaConexion.Conectar();
+            Statement st = MyConexion.createStatement();
+            rst = st.executeQuery("Select * from  Empleados");
+            return rst;
+        }
+        
+        catch(SQLException e){
+            System.out.println(e+ " No jalo :3");
+            return rst;
+        }
+        
     }
-
-    public int getTelefono() {
-        return Telefono;
+    
+    public void Actualizar(int Codigo, String Apellidos, String Nombre, String Telefono){
+        
+        try{
+            Conexion nuevaConexcion = new Conexion();
+            MyConexion = nuevaConexcion.Conectar();
+            Statement st = MyConexion.createStatement();
+            st.executeQuery("Update empleados set APELLIDOS ="+"'"+Apellidos+"',NOMBRE="+"'"+Nombre+"',TELEFONO="+"'"+Telefono+"' where idempleado="+"'"+Codigo+"'");
+            
+        }
+        catch(SQLException e){
+      
+            JOptionPane.showMessageDialog(null, "No jalo a editar tu empleado "+ e);
+            
+        }
     }
-
-    public void setTelefono(int Telefono) {
-        this.Telefono = Telefono;
+    
+    public void Guardar(int Codigo, String Apellidos, String Nombre, String Telefono){
+        try{
+            Conexion nuevaConexcion = new Conexion();
+            MyConexion = nuevaConexcion.Conectar();
+            Statement st = MyConexion.createStatement();
+            st.executeQuery("Insert into empleados values ("+"'"+Codigo+"',"+"'"+Apellidos+"',"+"'"+Nombre+"'"+"'"+Telefono+"')");
+            JOptionPane.showMessageDialog(null, "Empleado Guardado");
+            
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "No jalo a subir tu persona "+ e);
+          
+            
+        }
+        
     }
-
-    public int getCodigo() {
-        return Codigo;
-    }
-
-    public void setCodigo(int Codigo) {
-        this.Codigo = Codigo;
-    }
-
-    public String getApellidos() {
-        return Apellidos;
-    }
-
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    
+    public void Eliminar(int Codigo){
+        
     }
     
 }

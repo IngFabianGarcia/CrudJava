@@ -70,13 +70,10 @@ public class frmEmpleados extends javax.swing.JDialog {
 
         jtTablaDatosPersona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Codigo", "Apellidos", "Nombres", "Telefono"
+
             }
         ));
         jScrollPane1.setViewportView(jtTablaDatosPersona);

@@ -9,17 +9,19 @@ import java.sql.*;
 public class Conexion {
 
     Connection conexion;
-    public Connection Conectar(String user, String contra){
+    public Connection Conectar(){
         try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             String nombre_servidor= "127.0.0.1";
             String puerto = "1521";
             String sid = "xe";
             String url ="jdbc:oracle:thin:@"+nombre_servidor+":"+puerto+":"+sid;
+            String user = "SYSTEM";
+            String contra = "58905326";
             
             conexion = DriverManager.getConnection(url,user,contra);
                 
-            JOptionPane.showMessageDialog(null, "Conexion Correcta");
+         
             
             
         } catch (SQLException e) {
@@ -30,6 +32,8 @@ public class Conexion {
         return conexion;     
     }
 }
+    
+   
 
     
 
